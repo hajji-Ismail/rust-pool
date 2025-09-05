@@ -12,7 +12,8 @@ for item in a.split(" "){
 
 }
 
-    (a,res)
+
+    (a,res.trim().to_string())
 }
 
 pub fn vec_function(b: Vec<i32>) -> (Vec<i32>, Vec<f64>) {
