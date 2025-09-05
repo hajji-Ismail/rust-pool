@@ -6,7 +6,7 @@ pub fn nbr_function(c: i32) -> (i32, f64, f64) {
 pub fn str_function(a: String) -> (String, String) {
     let mut res : String = Default::default() ;
 for item in a.split(" "){
-    let mut conv = item.parse::<f64>().unwrap();
+    let  conv = item.parse::<f64>().unwrap();
     let  nla = conv.exp().to_string();
     res.push_str(&(nla + " "))
 
