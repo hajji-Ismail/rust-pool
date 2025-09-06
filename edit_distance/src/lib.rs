@@ -11,6 +11,7 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
            
             if  c1 == c2 {
                 plus = true;
+                break;
             }
 
         }
