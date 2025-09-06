@@ -1,6 +1,9 @@
 
 pub fn capitalize_first(input: &str) -> String {
  let  sub: Vec<char> = input.chars().collect();
+ if sub.len() == 0 {
+    return "".to_string()
+ }
  let f = sub[0].to_uppercase();
  let res :String = f.to_string()+&sub[1..].iter().collect::<String>();
  res
