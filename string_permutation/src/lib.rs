@@ -1,5 +1,5 @@
 pub fn is_permutation(s1: &str, s2: &str) -> bool {
-    if s1.len() > s2.len() {
+    if s1.len() != s2.len() {
         return false;
     }
     let mut chars1: Vec<char> = s1.chars().collect();
