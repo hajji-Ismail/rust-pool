@@ -16,7 +16,7 @@ pub fn median(list: &[i32]) -> i32 {
     vec_list.sort();
 
     if vec_list.len() % 2 == 0 {
-        res = (vec_list[vec_list.len() / 2] + vec_list[vec_list.len() / 2]-1 ) /2;
+        res = (vec_list[vec_list.len() / 2] + vec_list[vec_list.len() / 2]-1 ) /2 +1 ;
     } else {
         res = vec_list[vec_list.len() / 2];
 
