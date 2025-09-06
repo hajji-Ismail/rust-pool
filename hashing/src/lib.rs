@@ -39,9 +39,12 @@ pub fn mode(list: &[i32]) -> i32 {
     
 
        let mut res: i32 =0;
+       let mut val : i32= 0 ;
+       println!("{:?}", map);
     for (c, v) in map {
-        if v > res {
+        if v > val {
             res = c ;
+            val = v;
         }
     }
     res
