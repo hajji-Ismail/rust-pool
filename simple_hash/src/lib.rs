@@ -10,6 +10,7 @@ pub fn word_frequency_counter<'a>(words: &[&'a str]) -> HashMap<&'a str, usize> 
         }
     }
     res
+    
 
 }
 
