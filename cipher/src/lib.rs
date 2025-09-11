@@ -1,5 +1,6 @@
 
 
+
 #[derive(Debug, PartialEq)]
 pub struct CipherError {
     expected : String
@@ -19,6 +20,7 @@ if ciph == ciphered.to_string() {
     return Ok(());
 }
 Err(CipherError { expected: ciph })
+
 
 
 
