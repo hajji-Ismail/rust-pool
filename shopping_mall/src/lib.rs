@@ -2,12 +2,12 @@ pub mod mall;
 
 pub use mall::*;
 
-pub fn biggest_store(Mall: &mall::Mall) -> (String, mall::Store) {
+pub fn biggest_store(mall: &mall::Mall) -> (String, Store) {
     let mut max: u64 = 0;
     let mut storename: String = String::new();
     let mut floorn: String = String::new();
 
-    for (floorname, floor) in Mall.floors.clone() {
+    for (floorname, floor) in mall.floors.clone() {
         for (name, store) in floor.stores {
             if store.square_meters >= max {
                 max = store.square_meters;
@@ -18,7 +18,7 @@ pub fn biggest_store(Mall: &mall::Mall) -> (String, mall::Store) {
     }
     (
         storename.clone(),
-        Mall.floors
+        mall.floors
             .get(&floorn)
             .unwrap()
             .stores
@@ -27,33 +27,38 @@ pub fn biggest_store(Mall: &mall::Mall) -> (String, mall::Store) {
             .clone(),
     )
 }
-pub fn highest_paid_employee(Mall: &mall::Mall) -> Vec<mall::Employee> {
-       let mut max: f64 = 0.0;
-    let mut employe_vec :  Vec<mall::Employee> = vec![];
-    for (_, floor) in Mall.floors.clone() {
-        for (_, store) in floor.stores {
-            for (_, employe) in store.employees {
-                if employe.salary >= max {
-                    max = employe.salary;
-                }
-            }
-        }
-    }
-    for (_, floor) in Mall.floors.clone() {
-        for (_, store) in floor.stores {
-            for (_, employe) in store.employees {
-                if employe.salary == max {
+pub fn highest_paid_employee(mall: &mall::Mall) -> Vec<(&String, &Employee)> {
+    let mut max_salary = 0.0;
+    let mut employees_with_max_salary = Vec::new();
 
-                     employe_vec.push(employe);
+    // First pass: find max salary
+    for (_, floor) in &mall.floors {
+        for (_, store) in &floor.stores {
+            for (_, employee) in &store.employees {
+                if employee.salary > max_salary {
+                    max_salary = employee.salary;
                 }
             }
         }
     }
-  employe_vec
+
+    // Second pass: collect all employees with max salary
+    for (_, floor) in &mall.floors {
+        for (_, store) in &floor.stores {
+            for (name, employee) in &store.employees {
+                if employee.salary == max_salary {
+                    employees_with_max_salary.push((name, employee));
+                }
+            }
+        }
+    }
+
+    employees_with_max_salary
 }
-pub fn nbr_of_employees(Mall: &mall::Mall) -> usize {
-    let mut nmb_of_employer = Mall.guards.len() ;
-    for (_, floor) in Mall.floors.clone() {
+
+pub fn nbr_of_employees(mall:&Mall) -> usize {
+    let mut nmb_of_employer = mall.guards.len() ;
+    for (_, floor) in mall.floors.clone() {
         for (_, store) in floor.stores {
             nmb_of_employer += store.employees.len();
         }
@@ -61,17 +66,17 @@ pub fn nbr_of_employees(Mall: &mall::Mall) -> usize {
 
     nmb_of_employer
 }
-pub fn check_for_securities(Mall: &mut mall::Mall, guard: Vec<(String, Guard)>) {
-    let mut nmb_of_guard = Mall.guards.len();
+pub fn check_for_securities(mall: &mut Mall, guard: Vec<(String, Guard)>) {
+    let mut nmb_of_guard = mall.guards.len();
     let mut Mall_square_meter: u64 = 0;
-    for (_,floor) in Mall.floors.clone(){
+    for (_,floor) in mall.floors.clone(){
         Mall_square_meter += floor.size_limit ;
 
     }
   for g in guard {
     if Mall_square_meter  as usize / 200 > nmb_of_guard   {
        
-        Mall.hire_guard(g.0, g.1);
+        mall.hire_guard(g.0, g.1);
         nmb_of_guard += 1 ;
 
     }else {
@@ -80,8 +85,8 @@ pub fn check_for_securities(Mall: &mut mall::Mall, guard: Vec<(String, Guard)>) 
   }
 
 }
-pub fn cut_or_raise(Mall: &mut mall::Mall) {
-    for (_, floor) in Mall.floors.iter_mut() {
+pub fn cut_or_raise(mall: &mut Mall) {
+    for (_, floor) in mall.floors.iter_mut() {
         for (_, store) in floor.stores.iter_mut() {
             for (_, employ) in store.employees.iter_mut() {
                 if employ.working_hours.1 - employ.working_hours.0 >= 10 {
