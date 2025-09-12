@@ -6,7 +6,7 @@ pub fn middle_day(year: i32) -> Option<Weekday> {
     let days = if is_leap { return  None;
     } else { 365 };
 
-    let mid_day = days / 2+1 ;
+    let mid_day = days / 2 +1 ;
 
 
     NaiveDate::from_yo_opt(year, mid_day).map(|d| d.weekday())

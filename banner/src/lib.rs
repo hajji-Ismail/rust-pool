@@ -44,7 +44,9 @@ impl FlagsHandler {
     }
 
 
-pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
+pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {pub(crate) fn cone_volume(base_radius: usize, height: usize) -> f64 {
+    (1.0 / 3.0) * std::f64::consts::PI * base_radius.pow(2) as f64 * height as f64
+}
     let a_parse: f64 = a.parse()?;
     let b_parse: f64 = b.parse()?;
     let c = a_parse/b_parse ;
