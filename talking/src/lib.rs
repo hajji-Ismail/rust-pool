@@ -1,19 +1,23 @@
 pub fn talking(text: &str) -> &str {
-    if text.len() == 0 {
+    if text.trim().is_empty() {
         return "Just say something!";
-    } else if text.chars().nth(text.len() - 1).unwrap() == '?' {
-        if text
-            .chars()
-            .filter(|x| x.is_alphabetic())
-            .all(|x| x.is_uppercase())
-        {
-            return "Quiet, I am thinking!";
+    }
+
+    let is_question = text.trim_end().ends_with('?');
+    let mut  only_letters = text.chars().filter(|c| c.is_alphabetic());
+    let is_all_uppercase = only_letters.clone().count() > 0 && only_letters.all(|c| c.is_uppercase());
+
+    if is_question {
+        if is_all_uppercase {
+            "Quiet, I am thinking!"
         } else {
-            return "Sure.";
+            "Sure."
         }
-    } else if text.chars().nth(text.len() - 1).unwrap() != '?' {
-        return "There is no need to yell, calm down!";
     } else {
-        "Interesting"
+        if is_all_uppercase {
+            "There is no need to yell, calm down!"
+        } else {
+            "Interesting"
+        }
     }
 }
