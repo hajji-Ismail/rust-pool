@@ -1,5 +1,5 @@
 pub fn num_to_ordinal(x: u32) -> String {
-    let n = x % 10 ; 
+    let n = x % 20 ; 
     
     match n  {
         1 => format!("{x}st"),
