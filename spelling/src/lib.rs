@@ -1,6 +1,6 @@
 pub fn spell(n: u64) -> String {
     if n ==  0 {
-        return "zero ".to_string();
+        return "zero".to_string();
 
     }
      let n_str = n.to_string();
