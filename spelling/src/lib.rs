@@ -1,15 +1,13 @@
 pub fn spell(n: u64) -> String {
-    if n ==  0 {
+    if n == 0 {
         return "zero".to_string();
-
     }
-     let n_str = n.to_string();
+    let n_str = n.to_string();
     let chars: Vec<char> = n_str.chars().collect();
     let mut arr_of_str_num: Vec<String> = vec![];
     let mut number_names: Vec<String> = vec![];
     let mut res: String = Default::default();
     let num_len = n_str.len();
-
 
     for c in &chars {
         match c {
@@ -27,14 +25,13 @@ pub fn spell(n: u64) -> String {
         }
     }
 
-
     for i in 0..num_len {
         let pos = num_len - i;
 
         let label = match pos {
-            1 => "".to_string(),               
-            2 => "ten ".to_string(),           
-            3 => "hundred ".to_string(),       
+            1 => "".to_string(),
+            2 => "ten ".to_string(),
+            3 => "hundred ".to_string(),
             4 => "thousand ".to_string(),
             5 => "ten ".to_string(),
             6 => "hundred ".to_string(),
@@ -45,15 +42,21 @@ pub fn spell(n: u64) -> String {
         number_names.push(label);
     }
 
-
     let teens = [
-        "ten", "eleven", "twelve", "thirteen", "fourteen",
-        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+        "ten",
+        "eleven",
+        "twelve",
+        "thirteen",
+        "fourteen",
+        "fifteen",
+        "sixteen",
+        "seventeen",
+        "eighteen",
+        "nineteen",
     ];
 
     let tens = [
-        "", "", "twenty", "thirty", "forty",
-        "fifty", "sixty", "seventy", "eighty", "ninety",
+        "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
     ];
 
     let mut i = 0;
@@ -69,25 +72,26 @@ pub fn spell(n: u64) -> String {
             if i + 1 < arr_of_str_num.len() {
                 let next_digit_char = chars[i + 1];
                 let next_digit = next_digit_char.to_digit(10).unwrap();
-
-                if digit == 1 {
+                if digit == 0 {
+                    res.push(' ');
+                    res.pop();
+                } else if digit == 1 {
                     // Handle teens
                     res.push_str(teens[next_digit as usize]);
                     res.push(' ');
 
-                    i += 2; 
+                    i += 2;
                     continue;
                 } else {
-                  
                     res.push_str(tens[digit as usize]);
-                    if next_digit != 0 {
+                    if next_digit == 0 {
+                        res.push(' ');
+                    } else {
                         res.push('-');
                         res.push_str(&arr_of_str_num[i + 1]);
-                    } else {
-                        res.push(' ');
                     }
 
-                    i += 2; 
+                    i += 2;
                     continue;
                 }
             } else {
