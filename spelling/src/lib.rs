@@ -1,5 +1,9 @@
 pub fn spell(n: u64) -> String {
-    let n_str = n.to_string();
+    if n ==  0 {
+        return "zero ".to_string();
+
+    }
+     let n_str = n.to_string();
     let chars: Vec<char> = n_str.chars().collect();
     let mut arr_of_str_num: Vec<String> = vec![];
     let mut number_names: Vec<String> = vec![];
