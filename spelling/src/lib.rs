@@ -81,7 +81,7 @@ pub fn spell(n: u64) -> String {
                   
                     res.push_str(tens[digit as usize]);
                     if next_digit != 0 {
-                        res.push(' ');
+                        res.push('-');
                         res.push_str(&arr_of_str_num[i + 1]);
                     } else {
                         res.push(' ');
