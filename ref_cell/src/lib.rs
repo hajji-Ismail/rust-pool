@@ -8,9 +8,9 @@ pub struct Tracker {
 }
 impl Tracker  {
     pub fn new(max : usize) -> Self {
-        Self{messages: RefCell::new(vec![]) , value: RefCell::new(0) , max: max}
+        Self{messages: RefCell::new(vec![]) , value: RefCell::new(0) , max}
     } 
-    pub fn set_value(&mut self , v : &Rc<usize>)  {
+    pub fn set_value(&self , v : &Rc<usize>)  {
         let counter = Rc::strong_count(v);
         let pers = ( counter*100)/&self.max ;
         if counter  > self.max  {
@@ -26,7 +26,7 @@ impl Tracker  {
         }
 
     }
-    pub fn peek(&mut self , v : &Rc<usize>) {
+    pub fn peek(&self , v : &Rc<usize>) {
          let counter = Rc::strong_count(v);
             let pers = ( counter*100)/&self.max ;
               self.messages.borrow_mut().push(format!( "Info: This value would use {}% of your quota" , pers));
