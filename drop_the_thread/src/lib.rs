@@ -30,14 +30,17 @@ impl ThreadPool {
     }
 
     pub fn drop_thread(&self, id: usize) {
-        if !self.is_dropped(id) && let Some(state) = self.states.borrow_mut().get_mut(id) {
-            if !*state {
-                *state = true;
-                self.drops.set(self.drops.get() + 1);
-            }
-        } else {
+        if id >= self.states.borrow().len() {
             panic!("{} is already dropped", id);
         }
+
+        let mut states = self.states.borrow_mut();
+        if states[id] {
+            panic!("{} is already dropped", id);
+        }
+
+        states[id] = true;
+        self.drops.set(self.drops.get() + 1);
     }
 }
 #[derive(Debug)]
