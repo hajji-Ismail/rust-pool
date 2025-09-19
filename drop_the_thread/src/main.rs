@@ -20,4 +20,20 @@ fn main() {
     drop(thread2_clone);
 
     println!("{:?}", (pool.is_dropped(id2), id2, &pool.drops, Rc::strong_count(&thread2)));
+}    
+    
+    
+#[test]
+#[should_panic(expected = "0 is already dropped")]
+fn test_dropping_dropped_thread_panics() {
+    let worker = ThreadPool::new();
+    let (_pid, thread) = worker.new_thread(String::from("gsd-rfkill"));
+    thread.skill();
+
+    let thread_clone = Thread {
+        pid: 0,
+        cmd: "gsd-rfkill".to_owned(),
+        parent: &worker,
+    };
+    thread_clone.skill();
 }

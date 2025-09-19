@@ -1,4 +1,4 @@
-use std::cell::{Cell, RefCell};
+use std::cell::{ Cell, RefCell };
 
 #[derive(Debug)]
 pub struct ThreadPool {
@@ -14,18 +14,11 @@ impl ThreadPool {
         }
     }
 
-    pub fn new_thread(&self, c: String) -> (usize, Thread<'_>) {
-        let pid = self.states.borrow().len();
-        self.states.borrow_mut().push(false);
-
-        (
-            pid,
-            Thread {
-                pid,
-                cmd: c,
-                parent: self,
-            },
-        )
+    pub fn new_thread(&self, cmd: String) -> (usize, Thread<'_>) {
+        let mut states = self.states.borrow_mut();
+        let id = states.len();
+        states.push(false);
+        (id, Thread { pid: id, cmd, parent: self })
     }
 
     pub fn thread_len(&self) -> usize {
@@ -37,15 +30,16 @@ impl ThreadPool {
     }
 
     pub fn drop_thread(&self, id: usize) {
-        if id> self.thread_len() {
+        if !self.is_dropped(id) && let Some(state) = self.states.borrow_mut().get_mut(id) {
+            if !*state {
+                *state = true;
+                self.drops.set(self.drops.get() + 1);
+            }
+        } else {
             panic!("{} is already dropped", id);
         }
-        let mut states = self.states.borrow_mut();
-        states[id] = true;
-        self.drops.set(self.drops.get() + 1);
     }
 }
-
 #[derive(Debug)]
 pub struct Thread<'a> {
     pub pid: usize,
@@ -54,8 +48,8 @@ pub struct Thread<'a> {
 }
 
 impl Thread<'_> {
-    pub fn skill(&self) {
-        self.parent.drop_thread(self.pid);
+    pub fn skill(self) {
+        drop(self);
     }
 }
 
