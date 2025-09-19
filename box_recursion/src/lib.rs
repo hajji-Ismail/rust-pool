@@ -37,7 +37,7 @@ impl WorkEnvironment {
     }
 
     pub fn add_worker(&mut self, name: &str, role: &str) {
-        let mut new = Worker{ name: name.to_string(), role : Role::from(role) , next: self.grade.take()} ; 
+        let new = Worker{ name: name.to_string(), role : Role::from(role) , next: self.grade.take()} ; 
         self.grade = Some(Box::new(new));
 
       
@@ -48,7 +48,6 @@ impl WorkEnvironment {
             let worker = *boxed; 
             self.grade = worker.next;  
             worker.name
-
         })
 
     }
