@@ -1,5 +1,4 @@
 use std::cell::{Cell, RefCell};
-use std::rc::Rc;
 
 #[derive(Debug)]
 pub struct ThreadPool {
@@ -8,19 +7,25 @@ pub struct ThreadPool {
 }
 
 impl ThreadPool {
-    pub fn new() -> Rc<Self> {
-        Rc::new(Self {
+    pub fn new() -> Self {
+        Self {
             drops: Cell::new(0),
             states: RefCell::new(Vec::new()),
-        })
+        }
     }
 
-    pub fn new_thread(self: &Rc<Self>, c: String) -> (usize, Thread) {
+    pub fn new_thread(&self, c: String) -> (usize, Thread<'_>) {
         let pid = self.states.borrow().len();
         self.states.borrow_mut().push(false);
 
-        let thread = Thread::new(pid, c, Rc::clone(self));
-        (pid, thread)
+        (
+            pid,
+            Thread {
+                pid,
+                cmd: c,
+                parent: self,
+            },
+        )
     }
 
     pub fn thread_len(&self) -> usize {
@@ -28,40 +33,34 @@ impl ThreadPool {
     }
 
     pub fn is_dropped(&self, id: usize) -> bool {
-        self.states.borrow()[id]
+        *self.states.borrow().get(id).unwrap_or(&false)
     }
 
     pub fn drop_thread(&self, id: usize) {
-        let mut states = self.states.borrow_mut();
-        if states[id] {
+        if self.is_dropped(id) {
             panic!("{} is already dropped", id);
         }
+        let mut states = self.states.borrow_mut();
         states[id] = true;
         self.drops.set(self.drops.get() + 1);
     }
 }
 
 #[derive(Debug)]
-pub struct Thread {
+pub struct Thread<'a> {
     pub pid: usize,
     pub cmd: String,
-    pub parent: Rc<ThreadPool>,
+    pub parent: &'a ThreadPool,
 }
 
-impl Thread {
-    pub fn new(pid: usize, cmd: String, parent: Rc<ThreadPool>) -> Self {
-        Self { pid, cmd, parent }
-    }
-
+impl Thread<'_> {
     pub fn skill(&self) {
         self.parent.drop_thread(self.pid);
     }
 }
 
-impl Drop for Thread {
+impl Drop for Thread<'_> {
     fn drop(&mut self) {
-      
-            self.parent.drop_thread(self.pid);
-        
+        self.parent.drop_thread(self.pid);
     }
 }
