@@ -19,7 +19,7 @@ impl ThreadPool {
         let pid = self.states.borrow().len();
         self.states.borrow_mut().push(false);
 
-        let thread = Thread::new(pid, c, Rc::clone(&self));
+        let thread = Thread::new(pid, c, Rc::clone(self));
         (pid, thread)
     }
 
