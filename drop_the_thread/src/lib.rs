@@ -60,8 +60,8 @@ impl Thread {
 
 impl Drop for Thread {
     fn drop(&mut self) {
-        if !self.parent.is_dropped(self.pid) {
+      
             self.parent.drop_thread(self.pid);
-        }
+        
     }
 }
