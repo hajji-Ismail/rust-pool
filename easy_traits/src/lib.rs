@@ -18,6 +18,7 @@ impl AppendStr for StringValue {
         StringValue { value }
     }
    fn append_number(&mut self, nb_to_append: f64) -> Self {
+
     let str_to_append = nb_to_append.to_string();
 
           let value = self.value.clone() + &str_to_append;
@@ -27,7 +28,7 @@ impl AppendStr for StringValue {
     fn remove_punctuation_marks(&mut self) -> Self {
         let mut value = String::new();
         for c in self.value.chars() {
-            if !c.is_ascii_punctuation() {
+            if !c.is_ascii_punctuation() && c != '-' {
                 value.push(c);
             }
         }
