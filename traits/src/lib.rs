@@ -1,3 +1,4 @@
+use std::fmt;
 #[derive(Debug)]
 pub struct Player {
 	pub name: String,
@@ -36,4 +37,11 @@ impl Food for Meat {
 	fn gives(&self) -> f64 {
 		self.fat_content*9.0 + ((self.weight_in_kg - self.fat_content)*4.0) 
 	}
+}
+impl fmt::Display for Player {
+	 fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+       
+        write!(f, "{}/nStrength: {}, Score: {}, Money: {}\nWeapons: {:?}",self.name,self.strength,self.score,self.money, self.weapons)
+    }
+	
 }
