@@ -28,7 +28,7 @@ impl AppendStr for StringValue {
     fn remove_punctuation_marks(&mut self) -> Self {
         let mut value = String::new();
         for c in self.value.chars() {
-            if !c.is_ascii_punctuation() && c != '-' {
+            if !c.is_ascii_punctuation() || c == '-' {
                 value.push(c);
             }
         }
