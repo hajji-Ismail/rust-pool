@@ -7,7 +7,7 @@ pub enum Antigen {
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone)]
-enum RhFactor {
+pub enum RhFactor {
     Positive,
     Negative,
 }
@@ -190,73 +190,34 @@ impl BloodType {
                         rh_factor: RhFactor::Negative,
                     },
                 ],
-                Antigen::O => vec![ BloodType {
-                        antigen: Antigen::O,
-                        rh_factor: RhFactor::Negative,
-                    },
+                Antigen::O => vec![
                     BloodType {
                         antigen: Antigen::O,
-                        rh_factor: RhFactor::Positive,
-                    },
-                    BloodType {
-                        antigen: Antigen::A,
                         rh_factor: RhFactor::Negative,
                     },
-                    BloodType {
-                        antigen: Antigen::A,
-                        rh_factor: RhFactor::Positive,
-                    },
-                    BloodType {
-                        antigen: Antigen::AB,
-                        rh_factor: RhFactor::Negative,
-                    },
-                    BloodType {
-                        antigen: Antigen::AB,
-                        rh_factor: RhFactor::Positive,
-                    },
-                    BloodType {
-                        antigen: Antigen::B,
-                        rh_factor: RhFactor::Negative,
-                    },
-                    BloodType {
-                        antigen: Antigen::B,
-                        rh_factor: RhFactor::Positive,
-                    },],
+                ],
                 Antigen::B => vec![
-                       BloodType {
-                        antigen: Antigen::B,
-                        rh_factor: RhFactor::Positive,
-                    },
+        
                     BloodType {
                         antigen: Antigen::B,
                         rh_factor: RhFactor::Negative,
                     },
-                           BloodType {
-                        antigen: Antigen::AB,
-                        rh_factor: RhFactor::Positive,
-                    },
-                           BloodType {
-                        antigen: Antigen::AB,
+        
+                    BloodType {
+                        antigen: Antigen::O,
                         rh_factor: RhFactor::Negative,
                     },
                 ],
                 Antigen::A => vec![
                     BloodType {
-                        antigen: Antigen::AB,
+                        antigen: Antigen::O,
                         rh_factor: RhFactor::Negative,
                     },
                     BloodType {
                         antigen: Antigen::A,
                         rh_factor: RhFactor::Negative,
                     },
-                       BloodType {
-                        antigen: Antigen::A,
-                        rh_factor: RhFactor::Positive,
-                    },
-                      BloodType {
-                        antigen: Antigen::AB,
-                        rh_factor: RhFactor::Positive,
-                    },
+             
                 ],
             },
         }
@@ -278,25 +239,20 @@ impl BloodType {
                         antigen: Antigen::B,
                         rh_factor: RhFactor::Positive,
                     },
-					        BloodType {
+                    BloodType {
                         antigen: Antigen::AB,
                         rh_factor: RhFactor::Positive,
                     },
-					
-					        BloodType {
+                    BloodType {
                         antigen: Antigen::A,
                         rh_factor: RhFactor::Positive,
                     },
-					
-
                 ],
                 Antigen::B => vec![
-
                     BloodType {
                         antigen: Antigen::O,
                         rh_factor: RhFactor::Positive,
                     },
-
                     BloodType {
                         antigen: Antigen::B,
                         rh_factor: RhFactor::Positive,
@@ -307,8 +263,6 @@ impl BloodType {
                         antigen: Antigen::AB,
                         rh_factor: RhFactor::Positive,
                     },
-
-
                     BloodType {
                         antigen: Antigen::A,
                         rh_factor: RhFactor::Positive,
@@ -321,35 +275,81 @@ impl BloodType {
                         antigen: Antigen::AB,
                         rh_factor: RhFactor::Positive,
                     },
-           
                     BloodType {
                         antigen: Antigen::AB,
                         rh_factor: RhFactor::Negative,
                     },
-         
                 ],
-                Antigen::O => vec![BloodType {
-                    antigen: Antigen::O,
-                    rh_factor: RhFactor::Negative,
-                }],
-                Antigen::B => vec![
+                Antigen::O => vec![
                     BloodType {
                         antigen: Antigen::O,
+                        rh_factor: RhFactor::Negative,
+                    },
+                    BloodType {
+                        antigen: Antigen::O,
+                        rh_factor: RhFactor::Positive,
+                    },
+                    BloodType {
+                        antigen: Antigen::A,
+                        rh_factor: RhFactor::Negative,
+                    },
+                    BloodType {
+                        antigen: Antigen::A,
+                        rh_factor: RhFactor::Positive,
+                    },
+                    BloodType {
+                        antigen: Antigen::B,
+                        rh_factor: RhFactor::Negative,
+                    },
+                    BloodType {
+                        antigen: Antigen::B,
+                        rh_factor: RhFactor::Positive,
+                    },
+                    BloodType {
+                        antigen: Antigen::AB,
+                        rh_factor: RhFactor::Negative,
+                    },
+                    BloodType {
+                        antigen: Antigen::AB,
+                        rh_factor: RhFactor::Positive,
+                    },
+                ],
+
+                Antigen::B => vec![
+                    BloodType {
+                        antigen: Antigen::AB,
                         rh_factor: RhFactor::Negative,
                     },
                     BloodType {
                         antigen: Antigen::B,
                         rh_factor: RhFactor::Negative,
                     },
+                         BloodType {
+                        antigen: Antigen::AB,
+                        rh_factor: RhFactor::Positive,
+                    },
+                    BloodType {
+                        antigen: Antigen::B,
+                        rh_factor: RhFactor::Positive,
+                    },
+                
                 ],
                 Antigen::A => vec![
                     BloodType {
-                        antigen: Antigen::O,
+                        antigen: Antigen::AB,
                         rh_factor: RhFactor::Negative,
                     },
                     BloodType {
                         antigen: Antigen::A,
                         rh_factor: RhFactor::Negative,
+                    },
+                         BloodType {
+                        antigen: Antigen::AB,
+                        rh_factor: RhFactor::Positive,
+                    },
+                    BloodType {
+                        antigen: Antigen::A,
+                        rh_factor: RhFactor::Positive,
                     },
                 ],
             },
