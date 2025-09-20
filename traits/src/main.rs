@@ -7,8 +7,8 @@ fn main() {
 	println!("this apple gives {} units of strength", apple.gives());
 
 	let steak = Meat {
-		weight_in_kg: 1.0,
-		fat_content: 1.0,
+		weight_in_kg: 1.5,
+		fat_content: 0.3,
 	};
 
 	let mut player1 = Player {

@@ -35,7 +35,7 @@ impl Food for Fruit {
 
 impl Food for Meat {
 	fn gives(&self) -> f64 {
-		self.fat_content*9.0 + ((self.weight_in_kg - self.fat_content)*4.0) 
+		(self.fat_content* self.weight_in_kg*9.0) +( (self.weight_in_kg*(1.0- self.fat_content))*4.0)
 	}
 }
 impl fmt::Display for Player {
