@@ -113,7 +113,7 @@ impl Scalar for f32 {
         1.0
     }
 }
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 impl <T: Scalar<Item = T>> Matrix<T> {
 	pub fn new() -> Matrix<T> {
