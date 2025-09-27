@@ -6,10 +6,7 @@ step: T
 
 use std::ops::Add;
 
-impl<T> StepIterator<T>
-where
-    T: Copy + Add<Output = T> + PartialOrd,
-{
+impl<T> StepIterator<T>{
     pub fn new(beg: T, end: T, step: T) -> Self {
         StepIterator {
             beg,
@@ -21,7 +18,7 @@ where
 
 impl<T> Iterator for StepIterator<T>
 where
-       T: Copy + Add<Output = T> + PartialOrd + Add<Output = T>+ Default ,
+       T: Copy + Add<Output = T> + PartialOrd + Default ,
 {
     type Item = T;
 
