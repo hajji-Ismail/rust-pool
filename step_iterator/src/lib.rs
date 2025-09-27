@@ -21,7 +21,7 @@ where
 
 impl<T> Iterator for StepIterator<T>
 where
-       T: Copy + Add<Output = T> + PartialOrd + Add<Output = T> + From<i32>,
+       T: Copy + Add<Output = T> + PartialOrd + Add<Output = T>+ Default ,
 {
     type Item = T;
 
@@ -29,7 +29,7 @@ where
       
         
        
-        let finished = if self.step > T::from(0) {
+        let finished = if self.step > T::default() {
             self.beg > self.end
         } else {
             self.beg < self.end
