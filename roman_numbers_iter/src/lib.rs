@@ -62,7 +62,6 @@ impl From<u32> for RomanNumber {
                 res.extend_from_slice(digits);
                 value -= num;
             }
-            println!(" {} {:?}",num , res);
         }
 
         RomanNumber(res)
@@ -73,7 +72,7 @@ impl Iterator for RomanNumber {
     fn next(&mut self) -> Option<Self::Item> {
       let res =  decipher(self) ;
 
-      Some(Self::from(res))
+      Some(Self::from(res+1))
 
         
     }
